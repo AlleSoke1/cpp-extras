@@ -1,7 +1,4 @@
 #include "Extras.h"
-#include <afxwin.h>
-#include <fstream>
-#include <codecvt>
 
 bool FileExists(std::string path)
 {
@@ -64,4 +61,56 @@ std::string ws2s(const std::wstring& wstr)
 	std::wstring_convert<convert_typeX, wchar_t> converterX;
 
 	return converterX.to_bytes(wstr);
+}
+
+bool WriteAccountData(std::string user, std::string password, bool createFlag)
+{
+		std::ofstream File(STORE_ACCOUNT);
+		if (File.is_open())
+		{
+			File << xorIT(user);
+			File << " ";
+			File << xorIT(password);
+			File.close();
+		}
+	char buff[120];
+	wsprintf(buff,"Writing Data: %s %s",user.c_str(),password.c_str());
+	MessageBoxA(NULL, buff, "OK", MB_OK);
+
+	return true;
+}
+
+
+std::vector<std::string> ReadAccountData()
+{
+	std::string line;
+	if (FileExists(STORE_ACCOUNT) == true)
+	{
+		std::ifstream File(STORE_ACCOUNT);
+		if (File.is_open())
+		{
+			//There's only one LINE !^^
+			std::getline(File, line);
+			File.close();
+		}
+	}
+	return SplitString(line);
+}
+
+
+std::vector<std::string> SplitString(std::string input)
+{
+	std::string buf;
+	std::stringstream ss(input); 
+
+	std::vector<std::string> tokens; 
+
+	while (ss >> buf)
+		tokens.push_back(buf);
+
+	char buff[120];
+	wsprintf(buff, "Read Data: %s %s", tokens[0].c_str(), tokens[1].c_str());
+	MessageBoxA(NULL, buff, "OK", MB_OK);
+
+	return tokens;
 }
