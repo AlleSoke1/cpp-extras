@@ -1,4 +1,5 @@
-#include "Extras.h"
+#include <afxwin.h>
+#include "stdafx.h"
 
 bool FileExists(std::string path)
 {
@@ -73,9 +74,9 @@ bool WriteAccountData(std::string user, std::string password, bool createFlag)
 			File << xorIT(password);
 			File.close();
 		}
-	char buff[120];
-	wsprintf(buff,"Writing Data: %s %s",user.c_str(),password.c_str());
-	MessageBoxA(NULL, buff, "OK", MB_OK);
+	//char buff[120];
+	//wsprintf(buff,"Writing Data: %s %s",user.c_str(),password.c_str());
+	//MessageBoxA(NULL, buff, "OK", MB_OK);
 
 	return true;
 }
@@ -108,9 +109,25 @@ std::vector<std::string> SplitString(std::string input)
 	while (ss >> buf)
 		tokens.push_back(buf);
 
-	char buff[120];
-	wsprintf(buff, "Read Data: %s %s", tokens[0].c_str(), tokens[1].c_str());
-	MessageBoxA(NULL, buff, "OK", MB_OK);
+	//char buff[120];
+	//wsprintf(buff, "Read Data: %s %s", tokens[0].c_str(), tokens[1].c_str());
+	//MessageBoxA(NULL, buff, "OK", MB_OK);
 
 	return tokens;
+}
+
+std::vector<std::string> &SplitStringDelim(const std::string &s, char delim, std::vector<std::string> &elems) {
+	std::stringstream ss(s);
+	std::string item;
+	while (std::getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+	return elems;
+}
+
+std::string ExePath() {
+	char buffer[MAX_PATH];
+	GetModuleFileName(NULL, buffer, MAX_PATH);
+	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
+	return std::string(buffer).substr(0, pos);
 }
