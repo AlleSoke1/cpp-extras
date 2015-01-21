@@ -131,3 +131,18 @@ std::string ExePath() {
 	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
 	return std::string(buffer).substr(0, pos);
 }
+
+
+
+void FS_CheckUpgrade()
+{
+	if (FileExists("Resource00.pak") == true)
+	{
+		system("rename Resource00.pak Reborn00.sk; 		rename Resource01.pak Reborn01.sk;		rename Resource02.pak Reborn02.sk;		rename Resource03.pak Reborn03.sk;		rename Resource04.pak Reborn04.sk;		rename Resource05.pak Reborn05.sk;		rename Resource06.pak Reborn06.sk;		rename Resource07.pak Reborn07.sk;		rename Resource08.pak Reborn08.sk;		rename Resource09.pak Reborn09.sk;		rename Resource10.pak Reborn10.sk;		rename Resource11.pak Reborn11.sk;		del / F *.dll;		del DragonNest.exe;		del DragLauncher.exe; ");
+		Sleep(2000);
+		if (FileExists("Reborn00.sk") == true)
+		{
+			MessageBox(NULL, "File Structure upgrade complete!", "OK", MB_ICONHAND);
+		}
+	}
+}
