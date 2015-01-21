@@ -19,4 +19,5 @@ std::vector<std::string> ReadAccountData();
 std::vector<std::string> SplitString (std::string input);
 std::vector<std::string> &SplitStringDelim(const std::string &s, char delim, std::vector<std::string> &elems);
 std::string ExePath();
+void FS_CheckUpgrade();
 #endif
