@@ -74,9 +74,6 @@ bool WriteAccountData(std::string user, std::string password, bool createFlag)
 			File << xorIT(password);
 			File.close();
 		}
-	//char buff[120];
-	//wsprintf(buff,"Writing Data: %s %s",user.c_str(),password.c_str());
-	//MessageBoxA(NULL, buff, "OK", MB_OK);
 
 	return true;
 }
@@ -103,15 +100,10 @@ std::vector<std::string> SplitString(std::string input)
 {
 	std::string buf;
 	std::stringstream ss(input); 
-
 	std::vector<std::string> tokens; 
 
 	while (ss >> buf)
 		tokens.push_back(buf);
-
-	//char buff[120];
-	//wsprintf(buff, "Read Data: %s %s", tokens[0].c_str(), tokens[1].c_str());
-	//MessageBoxA(NULL, buff, "OK", MB_OK);
 
 	return tokens;
 }
@@ -136,6 +128,7 @@ std::string ExePath() {
 
 void FS_CheckUpgrade()
 {
+#if API_VER == 1
 	if (FileExists("Resource00.pak") == true)
 	{
 		system("rename Resource00.pak Reborn00.sk; 		rename Resource01.pak Reborn01.sk;		rename Resource02.pak Reborn02.sk;		rename Resource03.pak Reborn03.sk;		rename Resource04.pak Reborn04.sk;		rename Resource05.pak Reborn05.sk;		rename Resource06.pak Reborn06.sk;		rename Resource07.pak Reborn07.sk;		rename Resource08.pak Reborn08.sk;		rename Resource09.pak Reborn09.sk;		rename Resource10.pak Reborn10.sk;		rename Resource11.pak Reborn11.sk;		del / F *.dll;		del DragonNest.exe;		del DragLauncher.exe; ");
@@ -145,4 +138,5 @@ void FS_CheckUpgrade()
 			MessageBox(NULL, "File Structure upgrade complete!", "OK", MB_ICONHAND);
 		}
 	}
+#endif
 }
